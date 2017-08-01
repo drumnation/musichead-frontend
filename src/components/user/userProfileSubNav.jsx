@@ -8,18 +8,18 @@ class UserProfileSubNav extends Component {
         return (
             <Navbar>
                 <Nav pullRight>
-                    { localStorage["spotify_token"] !== ''
-                        ?   
-                            <Button 
-                                eventKey={1}
-                                className="spotify-connect-button"
-                                bsStyle="success"
-                                href="http://localhost:3000/auth/spotify?show_dialog=true"
-                                ><img width={32} height={32} src='/assets/spotify-icon-25.png' alt="spotify icon"/>
-                                    <span className="spotify-button-text">
-                                        Connect Spotify
+                    {localStorage["spotify_token"] !== ''
+                        ?
+                        <Button
+                            eventKey={1}
+                            className="spotify-connect-button"
+                            bsStyle="success"
+                            href="http://sheltered-reaches-72737.herokuapp.com/auth/spotify?show_dialog=true"
+                        ><img width={32} height={32} src='/assets/spotify-icon-25.png' alt="spotify icon" />
+                            <span className="spotify-button-text">
+                                Connect Spotify
                                     </span>
-                            </Button>
+                        </Button>
                         : <div></div>
                     }
                     <ButtonGroup>
