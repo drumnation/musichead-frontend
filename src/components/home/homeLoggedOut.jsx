@@ -12,6 +12,7 @@ import {
 // import { Link } from 'react-router-dom'
 import { fetchSignUp } from '../../actions/signupActions'
 import connectedWithRoutes from '../../hocs/connectedWithRoutes'
+import { environment } from './../../api/railsApi'
 // import FacebookLogin from 'react-facebook-login'
 
 const features = {
@@ -61,7 +62,7 @@ class HomeLoggedOut extends Component {
                                         className="spotify-connect-button"
                                         bsStyle="danger"
                                         bsSize="large"
-                                        href="http://musichead-rails-api.herokuapp.com/auth/spotify?show_dialog=true"
+                                        href={`${environment[1]}/auth/spotify?show_dialog=true`}
                                     >
                                         <img width={64} height={64} src='/assets/spotify-icon-25.png' alt="spotify icon" />
                                         <span className="spotify-button-text">

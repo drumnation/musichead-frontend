@@ -1,12 +1,7 @@
-// import axios from 'axios'
-
-// function logIn(userAttributes) { // ALSO WORKS AND IS MUCH SHORTER
-//     axios.post('http://musichead-rails-api.herokuapp.com/api/v1/sessions/', userAttributes)
-//     .then(res => localStorage.setItem(res.token))
-// }
+var environment = ['http://localhost:3000', 'http://musichead-rails-api.herokuapp.com']
 
 function logIn(params) {
-    return fetch("http://musichead-rails-api.herokuapp.com/api/v1/sessions/", {
+    return fetch(`${environment[1]}/api/v1/sessions/`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -17,7 +12,7 @@ function logIn(params) {
 }
 
 function fetchUsers() {
-    return fetch('http://musichead-rails-api.herokuapp.com/api/v1/users', {
+    return fetch(`${environment[1]}/api/v1/users`, {
         headers: {
             'Authorization': localStorage.getItem('jwt')
         }
@@ -26,7 +21,7 @@ function fetchUsers() {
 }
 
 function fetchUser(id) {
-    return fetch(`http://musichead-rails-api.herokuapp.com/api/v1/users/${id}`, {
+    return fetch(`${environment[1]}/api/v1/users/${id}`, {
         headers: {
             'Authorization': localStorage.getItem('jwt')
         }
@@ -35,7 +30,7 @@ function fetchUser(id) {
 }
 
 function createUser(user) {
-    return fetch('http://musichead-rails-api.herokuapp.com/api/v1/users/', {
+    return fetch(`${environment[1]}/api/v1/users/`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -47,7 +42,7 @@ function createUser(user) {
 }
 
 function updateUser(user) {
-    return fetch(`http://musichead-rails-api.herokuapp.com/api/v1/users/${user.id}`, {
+    return fetch(`${environment[1]}/api/v1/users/${user.id}`, {
         method: 'PATCH',
         headers: {
             'Accept': 'application/json',
@@ -59,7 +54,7 @@ function updateUser(user) {
 }
 
 function deleteUser(user) {
-    return fetch(`http://musichead-rails-api.herokuapp.com/api/v1/users/${user.id}`, {
+    return fetch(`${environment[1]}/api/v1/users/${user.id}`, {
         method: 'DELETE',
         headers: {
             'Accept': 'application/json',
@@ -69,4 +64,4 @@ function deleteUser(user) {
     }).then(res => res.json())
 }
 
-export { logIn, fetchUser, fetchUsers, createUser, updateUser, deleteUser }
+export { logIn, fetchUser, fetchUsers, createUser, updateUser, deleteUser, environment }
