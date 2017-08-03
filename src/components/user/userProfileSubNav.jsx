@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Nav, Navbar, ButtonGroup, Button } from 'react-bootstrap'
-import { NavLink } from 'react-router-dom'
+import { LinkContainer } from 'react-router-bootstrap'
 import './style.css'
+import { environment } from './../../api/railsApi'
 
 class UserProfileSubNav extends Component {
     render() {
@@ -10,22 +11,36 @@ class UserProfileSubNav extends Component {
                 <Nav pullRight>
                     {localStorage["spotify_token"] !== ''
                         ?
-                        <Button
-                            eventKey={1}
-                            className="spotify-connect-button"
-                            bsStyle="success"
-                            href="http://sheltered-reaches-72737.herokuapp.com/auth/spotify?show_dialog=true"
-                        ><img width={32} height={32} src='/assets/spotify-icon-25.png' alt="spotify icon" />
-                            <span className="spotify-button-text">
-                                Connect Spotify
-                                    </span>
-                        </Button>
-                        : <div></div>
+                        <LinkContainer to={`${environment[1]}/auth/spotify?show_dialog=true`}>
+                            <Button
+                                className="spotify-connect-button"
+                                bsStyle="success"
+                            >
+                                <img width={32} height={32} src='/assets/spotify-icon-25.png' alt="spotify icon" />
+                                <span className="spotify-button-text">
+                                    Connect Spotify
+                                </span>
+                            </Button>
+                        </LinkContainer>
+                        :
+                        <div></div>
                     }
                     <ButtonGroup>
-                        <Button className="sub-menu-buttons" eventKey={2}><NavLink to="/profile">Listening History</NavLink></Button>
-                        <Button className="sub-menu-buttons" eventKey={3}><NavLink to="/profile/bands">Bands</NavLink></Button>
-                        <Button className="sub-menu-buttons" eventKey={5}><NavLink to="/profile/tracks">Tracks</NavLink></Button>
+                        <LinkContainer to="/profile">
+                            <Button className="sub-menu-buttons">
+                                Listening History
+                            </Button>
+                        </LinkContainer>
+                        <LinkContainer to="/profile/bands">
+                            <Button className="sub-menu-buttons">
+                                Bands
+                            </Button>
+                        </LinkContainer>
+                        <LinkContainer to="/profile/tracks">
+                            <Button className="sub-menu-buttons">
+                                Tracks
+                            </Button>
+                        </LinkContainer>
                     </ButtonGroup>
                 </Nav>
             </Navbar>

@@ -21,8 +21,8 @@ class TopNavLoggedIn extends Component {
                 </Col>
                 <ButtonToolbar className="profile-buttons">
                     <Button className="log-out-button" bsSize="lg" onClick={this.props.logUserOut}>Log Out</Button>
-                    <LinkContainer to="/profile/">
-                        <Button bsStyle="primary" bsSize="large" className="profile-link-button">
+                    <LinkContainer className="profile-link-button" to="/profile/">
+                        <Button bsStyle="primary" bsSize="large" href="#!" >
                             Profile
                         </Button>
                     </LinkContainer>
