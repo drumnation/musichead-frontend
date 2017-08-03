@@ -1,6 +1,6 @@
-var environment = ['http://localhost:3000', 'https://musichead-rails-api.herokuapp.com']
+var environment = ['https://musichead-rails-api.herokuapp.com', 'http://localhost:3000']
 
-async function logIn(email) {
+const logIn = async email => {
     try {
         const response = await fetch(`${environment[1]}/api/v1/sessions/`, {
             headers: {

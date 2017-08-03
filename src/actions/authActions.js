@@ -59,7 +59,7 @@ export function fetchLogIn(user, history) {
                     dispatch(receiveLogIn(data))
                     return data
                 }
-            }).catch((err => console.log(err)))
+            })
     }
 }
 
