@@ -7,10 +7,11 @@ import {
     Panel,
     Row
 } from 'react-bootstrap'
-import ArtistShow from '../../../containers/artistShow'
 import '../../../App.css'
 import { connect } from 'react-redux'
 import * as actions from '../../../actions/apiActions'
+import ArtistInfo from './../../artist/artistInfo'
+import TopTracksList from './../../artist/topTracksList'
 
 class SearchForArtist extends Component {
     constructor(props) {
@@ -22,24 +23,17 @@ class SearchForArtist extends Component {
         if (this.props.store.api.albums) {
             let albums = this.props.store.api.albums.items
             if (albums.length !== 0) {
-                return albums.map(album => {
-                    let index = Math.random()
+                return albums.map((album, index) => {
                     return (
-                        <Row className="track">
-                            <div
-                                key={index}
-                                className="track"
-                            >
-                                <img
-                                    alt="related-track-cover"
-                                    className="track-img"
-                                    src={album.images[0].url}
-                                />
-
-                                <Row className="track-text">
-                                    {`${album.name}`}
-                                </Row>
-                            </div>
+                        <Row key={`albums_${index}`} className="track">
+                            <img
+                                alt="related-track-cover"
+                                className="track-img"
+                                src={album.images[0].url}
+                            />
+                            <Row className="track-text">
+                                {`${album.name}`}
+                            </Row>
                         </Row>
                     )
                 })
@@ -55,24 +49,17 @@ class SearchForArtist extends Component {
         if (this.props.store.api.relatedArtists.artists) {
             let relatedArtists = this.props.store.api.relatedArtists.artists
             if (relatedArtists.length !== 0) {
-                return relatedArtists.map(artist => {
-                    let index = Math.random()
+                return relatedArtists.map((artist, index) => {
                     return (
-                        <Row className="track">
-                            <div
-                                key={index}
-                                className="track"
-                            >
-                                <img
-                                    alt="related-track-cover"
-                                    className="track-img"
-                                    src={artist.images[0].url}
-                                />
-
-                                <Row className="track-text">
-                                    {`${artist.name}`}
-                                </Row>
-                            </div>
+                        <Row key={`related_artists_${index}`} className="track">
+                            <img
+                                alt="related-track-cover"
+                                className="track-img"
+                                src={artist.images[0].url}
+                            />
+                            <Row className="track-text">
+                                {`${artist.name}`}
+                            </Row>
                         </Row>
                     )
                 })
@@ -116,10 +103,10 @@ class SearchForArtist extends Component {
                     this.props.store.api.loading === false
                         ?
                         <div>
-                            <ArtistShow
-                                artist={this.props.store.api.artist}
-                                tracks={this.props.store.api.tracks}
-                            />
+                            <Panel>
+                                <ArtistInfo artist={this.props.store.api.artist} />
+                            </Panel>
+                            <TopTracksList />
                             <Panel header={albums}>
                                 {this.renderAlbums()}
                             </Panel>

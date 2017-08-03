@@ -10,18 +10,6 @@ import { GET_ARTIST_TOP_TRACKS } from '../constants'
 import { GET_ARTIST_ALBUM_TRACKS } from '../constants'
 import { GET_ARTIST_ALBUMS } from '../constants'
 
-// const defaultState = {
-//     album: [], 
-//     albums: [],
-//     artist: '',
-//     relatedArtists: '',
-//     artistTopTracks: [],
-//     albumTracks: [], 
-//     relatedTracks: [],
-//     tracks: [],
-//     video: [],
-//     loading: false
-// }
 
 const apiReducer = (state = [], action) => {
     switch (action.type) {

@@ -53,11 +53,10 @@ class SearchForAlbum extends Component {
         if (this.props.store.api.albumTracks) {
             let tracks = this.props.store.api.albumTracks.items
             if (tracks.length > 0) {
-                return tracks.map((track, i) => {
+                return tracks.map((track, index) => {
                     return (
-                        <Row className="track">
+                        <Row key={`tracks_${index}`} className="track">
                             <div
-                                key={i}
                                 className="track"
                                 onClick={() => this.playAudio(track.preview_url)}
                             >

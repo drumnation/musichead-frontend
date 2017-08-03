@@ -80,11 +80,11 @@ class SearchForTrack extends Component {
             return (
                 <Row>
                     <Col md={8}>
-                        <iframe title={video.name} width="100%" height="315" src={`https://www.youtube.com/embed/${video.id}`} frameborder="0" allowfullscreen />
+                        <iframe title={video.name} width="100%" height="315" src={`https://www.youtube.com/embed/${video.id}`} frameBorder="0" allowFullScreen />
                     </Col>
                     <Col className="track-details-col" md={4}>
                         <Row>
-                            <iframe title={track.name} src={`https://open.spotify.com/embed/track/${track.id}`} width="95%" height="315" frameborder="0" allowtransparency="true" />
+                            <iframe title={track.name} src={`https://open.spotify.com/embed/track/${track.id}`} width="95%" height="315" frameBorder="0" allowTransparency="true" />
                         </Row>
                     </Col>
                 </Row>
@@ -95,12 +95,12 @@ class SearchForTrack extends Component {
     renderRelatedTracks() {
         if (this.props.store.api.relatedTracks) {
             const relatedTracks = this.props.store.api.relatedTracks.tracks
-            return relatedTracks.map(track => {
+            return relatedTracks.map((track, index) => {
                 let cleanTrackName = this.dePunctuate(track.name)
                 let cleanArtistName = this.dePunctuate(track.artists[0].name)
                 let query = this.slugify(`${cleanTrackName} ${cleanArtistName}`)
                 return (
-                    <Row className="track">
+                    <Row key={`related_tracks_${index}`} className="track">
                         <Link
                             to={this.slugify(`/track/${cleanArtistName}/${this.dePunctuate(track.album.name)}/${cleanTrackName}`)}
                             onClick={() => {
@@ -137,9 +137,9 @@ class SearchForTrack extends Component {
     renderRelatedArtists() {
         if (this.props.store.api.relatedArtists) {
             let artists = this.props.store.api.relatedArtists.artists
-            return artists.map(artist => {
+            return artists.map((artist, index) => {
                 return (
-                    <Row className="track">
+                    <Row key={`related_artists_${index}`} className="track">
                         <Link
                             to={`/artists/${this.slugify(this.dePunctuate(artist.name))}`}
                             onClick={() => !this.props.store.api.loading ? this.props.artistSearchPage(this.state.query) : null}

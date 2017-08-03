@@ -4,22 +4,22 @@ import '../../App.css'
 import { connect } from 'react-redux'
 import * as actions from '../../actions/apiActions'
 
-class topTracksList extends Component {
+class TopTracksList extends Component {
     render() {
         if (this.props.store.api.artistTopTracks) {
             const tracks = this.props.store.api.artistTopTracks.tracks
             return (
                 <div>
                     <Panel header={title} id="tracks">
-                    { tracks
-                        ?
+                        {tracks
+                            ?
                             tracks.map((track, i) => {
                                 const trackImg = track.album.images[0].url
                                 return (
-                                    <div 
+                                    <div
                                         key={i}
                                         className="track"
-                                        onClick={ () => this.playAudio(track.preview_url) }
+                                        onClick={() => this.playAudio(track.preview_url)}
                                     >
                                         <img
                                             src={trackImg}
@@ -41,9 +41,9 @@ class topTracksList extends Component {
                                     </div>
                                 )
                             })
-                        :
+                            :
                             <div></div>
-                    }
+                        }
                     </Panel>
                 </div>
             )
@@ -54,8 +54,8 @@ class topTracksList extends Component {
 }
 
 const title = (
-    <p> 
-        <img src='/assets/werewolf-3.png' alt="werewolf"/><br/>
+    <p>
+        <img src='/assets/werewolf-3.png' alt="werewolf" /><br />
         <strong>ARTIST TOP TRACKS</strong>
     </p>
 )
@@ -66,4 +66,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, actions)(topTracksList)
+export default connect(mapStateToProps, actions)(TopTracksList)

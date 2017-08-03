@@ -12,31 +12,19 @@ import './style.css'
 import '../../App.css'
 
 class TopNavNotLoggedIn extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            email: '',
-            password: ''
-        }
-    }
-
-    handleLogin(event) {
-        event.preventDefault()
-        this.props.login(this.state, this.props.history)
-    }
-
     render() {
         return (
             <Grid>
                 <Row>
                     <Col xs={4} md={8} className="text-left">
-                        <h2>
-                            <strong>
-                                <Link className="brand" to="/">
-                                    <img alt="metal hand logo" src="/assets/long-beard-2-1.png" /> <span className="logo">MusicHead</span>
-                                </Link>
-                            </strong>
-                        </h2>
+                        <Link className="brand" to="/">
+                            <img alt="metal hand logo" src="/assets/long-beard-2-1.png" />
+                            <span className="logo">
+                                <h2>
+                                    MusicHead
+                                </h2>
+                            </span>
+                        </Link>
                     </Col>
                 </Row>
                 <Row>

@@ -1,4 +1,5 @@
 import Spotify from 'spotify-web-api-js'
+import { environment } from './railsApi'
 
 // SEARCH
 
@@ -86,7 +87,7 @@ function getRelatedTracksBasedOnTrack(track_id) {
 // ME
 
 function refreshSpotifyAuthToken() {
-    return fetch(`http://localhost:3000/auth/spotify/refresh/?id=${localStorage.getItem('user_id')}`, {
+    return fetch(`${environment[1]}/auth/spotify/refresh/?id=${localStorage.getItem('user_id')}`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',

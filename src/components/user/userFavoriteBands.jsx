@@ -13,29 +13,29 @@ class UserFavoriteBands extends Component {
 
     componentDidMount() {
         getUserFollowedArtists()
-        .then( artists => {
-            let savedArtistsObjects = []
-            artists.artists.items.forEach( artist => {
-                let artistItem
-                if (artist['images'][1]) {
-                    artistItem = {
-                        artistName: artist['name'],
-                        artistImage: artist['images'][1]['url'],
-                        artistId: artist['id']
+            .then(artists => {
+                let savedArtistsObjects = []
+                artists.artists.items.forEach(artist => {
+                    let artistItem
+                    if (artist['images'][1]) {
+                        artistItem = {
+                            artistName: artist['name'],
+                            artistImage: artist['images'][1]['url'],
+                            artistId: artist['id']
+                        }
+                        savedArtistsObjects.push(artistItem)
                     }
-                    savedArtistsObjects.push(artistItem)
-                }
+                })
+                this.setState({ savedArtists: savedArtistsObjects })
             })
-            this.setState({ savedArtists: savedArtistsObjects }) 
-        })
     }
 
     render() {
         return (
             <Panel header={title}>
-                { 
-                    this.state.savedArtists.map( artist => {
-                        return <ArtistCard artistProps={artist}/>
+                {
+                    this.state.savedArtists.map((artist, index) => {
+                        return <ArtistCard key={`favorite_artists_${index}`} artistProps={artist} />
                     })
                 }
             </Panel>
@@ -45,7 +45,7 @@ class UserFavoriteBands extends Component {
 
 const title = (
     <p>
-        <Glyphicon glyph="cd"/>
+        <Glyphicon glyph="cd" />
         &#32;&#32;<strong>FAVORITE BANDS</strong>
     </p>
 )

@@ -1,4 +1,37 @@
 import { logIn } from '../api/railsApi'
+import {
+    SPOTIFY_TOKENS,
+    SPOTIFY_ME_BEGIN,
+    SPOTIFY_ME_SUCCESS,
+    SPOTIFY_ME_FAILURE
+} from '../constants'
+import Spotify from 'spotify-web-api-js'
+const spotifyApi = new Spotify()
+
+// SPOTIFY
+
+export function setTokens({ accessToken, refreshToken }) {
+    if (accessToken) {
+        spotifyApi.setAccessToken(accessToken)
+        localStorage.setItem('spotify_token', accessToken)
+    }
+    return { type: SPOTIFY_TOKENS, accessToken, refreshToken }
+}
+
+export function getMyInfo(history) {
+    return dispatch => {
+        dispatch({ type: SPOTIFY_ME_BEGIN })
+        spotifyApi.getMe().then(data => {
+            dispatch({ type: SPOTIFY_ME_SUCCESS, data: data })
+            localStorage.setItem('spotify_token', data.spotify_token)
+            dispatch(fetchLogIn(data.email, history))
+        }).catch(e => {
+            dispatch({ type: SPOTIFY_ME_FAILURE, error: e })
+        })
+    }
+}
+
+// RAILS
 
 export function logInAction() {
     return {
@@ -15,21 +48,18 @@ export function logOut() {
     }
 }
 
-export function fetchLogIn(email, history) {
-    return function (dispatch) {
+export function fetchLogIn(user, history) {
+    return function (dispatch, history) {
         dispatch(requestLogIn())
-
-        return logIn(email)
+        return logIn(user, history)
             .then(data => {
-                console.log('fetchLogIn Data: ', data)
                 if (data.error) {
                     dispatch(logInError(data.error))
                 } else {
                     dispatch(receiveLogIn(data))
-                    history.push('/')
                     return data
                 }
-            })
+            }).catch((err => console.log(err)))
     }
 }
 

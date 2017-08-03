@@ -11,29 +11,29 @@ class UserFavoriteTracks extends Component {
 
     componentDidMount() {
         getUserSavedTracks()
-        .then( tracks => {
-            let savedTracks = []
-            tracks.items.forEach( track => {
-                let trackItem = {
-                    artistName: track['track']['artists'][0]['name'],
-                    artistId: track['track']['artists'][0]['id'],
-                    artistImage: '',
-                    trackName: track['track']['name'],
-                    albumName: track['track']['album']['name'],
-                    albumImage: track['track']['album']['images'][1]['url']
-                }
-                savedTracks.push(trackItem)
+            .then(tracks => {
+                let savedTracks = []
+                tracks.items.forEach(track => {
+                    let trackItem = {
+                        artistName: track['track']['artists'][0]['name'],
+                        artistId: track['track']['artists'][0]['id'],
+                        artistImage: '',
+                        trackName: track['track']['name'],
+                        albumName: track['track']['album']['name'],
+                        albumImage: track['track']['album']['images'][1]['url']
+                    }
+                    savedTracks.push(trackItem)
+                })
+                this.setState({ savedTracks: savedTracks })
             })
-            this.setState({ savedTracks: savedTracks })
-        })
     }
 
     render() {
         return (
             <Panel>
-                { 
-                    this.state.savedTracks.map( track => {
-                        return <TrackCard tracks={track}/>
+                {
+                    this.state.savedTracks.map((track, index) => {
+                        return <TrackCard key={`savedTracks_${index}`} tracks={track} />
                     })
                 }
             </Panel>

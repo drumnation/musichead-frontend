@@ -10,30 +10,30 @@ class UserListeningHistory extends Component {
             recently_played_tracks: []
         }
     }
-    componentDidMount(){
+    componentDidMount() {
         getUserRecentlyPlayedTracks()
-        .then( tracks => {
-            let recentTracks = []
-            tracks.items.forEach( track => {
-                const trackItem = {
-                    artistName: track['track']['artists'][0]['name'],
-                    trackName: track['track']['name'],
-                    albumName: track['track']['album']['name'],
-                    albumImage: track['track']['album']['images'][1]['url'],
-                    playedAt: track['played_at']
-                }
-                recentTracks.push(trackItem)
+            .then(tracks => {
+                let recentTracks = []
+                tracks.items.forEach(track => {
+                    const trackItem = {
+                        artistName: track['track']['artists'][0]['name'],
+                        trackName: track['track']['name'],
+                        albumName: track['track']['album']['name'],
+                        albumImage: track['track']['album']['images'][1]['url'],
+                        playedAt: track['played_at']
+                    }
+                    recentTracks.push(trackItem)
+                })
+                this.setState({ recently_played_tracks: recentTracks })
             })
-            this.setState({ recently_played_tracks: recentTracks })
-        })
     }
 
     render() {
         return (
             <Panel header={title}>
                 {
-                    this.state.recently_played_tracks.map( track => {
-                        return <UserHistoryItem track={track} />
+                    this.state.recently_played_tracks.map((track, index) => {
+                        return <UserHistoryItem key={`recent_track_${index}`} track={track} />
                     })
                 }
             </Panel>
