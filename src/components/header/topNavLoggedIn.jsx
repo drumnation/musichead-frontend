@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 import { ButtonGroup, ButtonToolbar, Button, Row, Col } from 'react-bootstrap'
 import connectedWithRoutes from '../../hocs/connectedWithRoutes'
@@ -36,16 +36,16 @@ class TopNavLoggedIn extends Component {
                             <strong>ARTIST</strong>
                         </Button>
                     </LinkContainer>
-                    <Button bsStyle="primary" href="#!" type="button">
-                        <Link to="/album">
+                    <LinkContainer to="/album">
+                        <Button bsStyle="primary" href="#!" type="button">
                             <strong>ALBUM</strong>
-                        </Link>
-                    </Button>
-                    <Button bsStyle="primary" href="#!" type="button">
-                        <Link to="/track">
+                        </Button>
+                    </LinkContainer>
+                    <LinkContainer to="/track">
+                        <Button bsStyle="primary" href="#!" type="button">
                             <strong>TRACK</strong>
-                        </Link>
-                    </Button>
+                        </Button>
+                    </LinkContainer>
                 </ButtonGroup>
             </Row>
         )
