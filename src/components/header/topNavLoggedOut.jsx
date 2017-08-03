@@ -17,14 +17,14 @@ class TopNavNotLoggedIn extends Component {
             <Grid>
                 <Row>
                     <Col xs={4} md={8} className="text-left">
-                        <Link className="brand" to="/">
-                            <img alt="metal hand logo" src="/assets/long-beard-2-1.png" />
-                            <span className="logo">
-                                <h2>
+                        <h2>
+                            <Link className="brand" to="/">
+                                <img alt="metal hand logo" src="/assets/long-beard-2-1.png" />
+                                <span className="logo">
                                     MusicHead
-                                </h2>
-                            </span>
-                        </Link>
+                                </span>
+                            </Link>
+                        </h2>
                     </Col>
                 </Row>
                 <Row>
