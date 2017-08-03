@@ -2,24 +2,14 @@ import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { fetchLogIn } from '../../actions/authActions'
 import { connect } from 'react-redux'
-import { 
-    Nav, 
-    Navbar, 
-    FormGroup, 
-    FormControl, 
-    Button, 
-    Form,
+import {
+    Navbar,
     Grid,
-    Row, 
+    Row,
     Col
 } from 'react-bootstrap'
 import './style.css'
 import '../../App.css'
-
-const inlineForm = {
-    marginTop: "6px",
-    paddingRight: "90px"
-}
 
 class TopNavNotLoggedIn extends Component {
     constructor(props) {
@@ -50,27 +40,11 @@ class TopNavNotLoggedIn extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Navbar inverse>
-                        <Nav pullRight> 
-                            <Form inline style={inlineForm} onSubmit={ this.handleLogin.bind(this) }>
-                                <FormGroup controlId="formInlineEmail">
-                                    {' '}
-                                    <FormControl value={this.state.email} type="email" placeholder="Email" onChange={(event) => this.setState({email: event.target.value})}/>
-                                </FormGroup>
-                                    {' '}
-                                <FormGroup controlId="formInlinePassword">
-                                    {' '}
-                                    <FormControl value={this.state.password} type="password" placeholder="Password" onChange={(event) => this.setState({password: event.target.value})}/>
-                                </FormGroup>
-                                    {' '}
-                                <Button className="login-button" bsStyle="primary" type="submit">Log in</Button>
-                            </Form>
-                        </Nav>
-                    </Navbar>
+                    <Navbar inverse></Navbar>
                 </Row>
             </Grid>
         )
-    }   
+    }
 }
 
 function mapStateToProps(state, ownProps) {
@@ -78,8 +52,8 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-    return { 
-        login: (user, history) => dispatch(fetchLogIn(user, history)) 
+    return {
+        login: (user, history) => dispatch(fetchLogIn(user, history))
     }
 }
 

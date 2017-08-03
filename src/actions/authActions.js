@@ -15,24 +15,25 @@ export function logOut() {
     }
 }
 
-export function fetchLogIn(user, history) {
+export function fetchLogIn(spotify_uid, history) {
     return function (dispatch) {
         dispatch(requestLogIn())
 
-        return logIn(user)
-        .then( data => {
-            if (data.error) {
-                dispatch(logInError(data.error))
-            } else {
-                dispatch(receiveLogIn(data))
-                history.push('/')
-                return data
-            }
-        })
+        return logIn(spotify_uid)
+            .then(data => {
+                console.log(data)
+                if (data.error) {
+                    dispatch(logInError(data.error))
+                } else {
+                    dispatch(receiveLogIn(data))
+                    history.push('/')
+                    return data
+                }
+            })
     }
 }
 
-export function logInError( error ) {
+export function logInError(error) {
     return {
         type: 'RECEIVE_LOG_IN',
         status: 'error',
@@ -41,18 +42,17 @@ export function logInError( error ) {
     }
 }
 
-export function requestLogIn( account ) {
+export function requestLogIn(account) {
     return {
         type: 'REQUEST_LOG_IN'
     }
 }
 
-export function receiveLogIn( user ) {
+export function receiveLogIn(user) {
     return function (dispatch) {
         localStorage.setItem('jwt', user.token)
         localStorage.setItem('user_id', user.id)
         localStorage.setItem('profile_image', user.image)
-        localStorage.setItem('spotify_token', user.spotify_token)
         localStorage.setItem('spotify_refresh_token', user.spotify_refresh_token)
         localStorage.setItem('spotify_uid', user.spotify_uid)
         dispatch(logInAction())

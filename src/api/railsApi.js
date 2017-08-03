@@ -1,14 +1,16 @@
-var environment = ['http://localhost:3000', 'http://musichead-rails-api.herokuapp.com']
+var environment = ['http://musichead-rails-api.herokuapp.com', 'http://localhost:3000']
 
-function logIn(params) {
+function logIn(token) {
     return fetch(`${environment[1]}/api/v1/sessions/`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         method: 'POST',
-        body: JSON.stringify(params)
-    }).then(res => res.json())
+        body: JSON.stringify({ token: token })
+    }).then(res => {
+        res.json()
+    })
 }
 
 function fetchUsers() {
@@ -38,7 +40,10 @@ function createUser(user) {
         },
         method: 'POST',
         body: JSON.stringify({ user })
-    }).then(res => res.json())
+    }).then(res => {
+        console.log('create user', res.json())
+        res.json()
+    })
 }
 
 function updateUser(user) {

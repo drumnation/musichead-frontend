@@ -11,6 +11,12 @@ import './App.css'
 
 class App extends Component {
   componentDidMount() {
+    if (!!localStorage.isLoggingIn) {
+      this.props.logInAction()
+    }
+
+    localStorage.setItem('isLoggingIn', false)
+
     if (!!localStorage.jwt) {
       this.props.logInAction()
     }
@@ -21,12 +27,13 @@ class App extends Component {
       <div className="App">
         <Grid>
           <Row>
-          <Header/>
+            <Header />
             <Switch>
-              <Route path="/profile" component={UserShow}/>
-              <Route path="/" component={HomeShow}/>
+              <Route path="/profile" component={UserShow} />
+              <Route path="/user/:spotify_uid/:access_token/:refresh_token" component={UserShow} />
+              <Route path="/" component={HomeShow} />
             </Switch>
-          <Footer/>
+            <Footer />
           </Row>
         </Grid>
       </div>

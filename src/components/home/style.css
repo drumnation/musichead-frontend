@@ -130,6 +130,10 @@
 }
 
 .spotify-connect-button {
-    margin-top: 20px;
+    margin-top: 130px;
     align-content: center;
+}
+
+.features {
+    font-size: 18px;
 }

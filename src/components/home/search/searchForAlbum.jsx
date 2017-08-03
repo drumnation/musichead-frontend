@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { 
-    FormGroup, 
-    FormControl, 
-    InputGroup, 
+import {
+    FormGroup,
+    FormControl,
+    InputGroup,
     Glyphicon,
     Panel,
     Row,
@@ -12,7 +12,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../../actions/apiActions'
 
 class SearchForAlbum extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
             query: '',
@@ -53,13 +53,13 @@ class SearchForAlbum extends Component {
         if (this.props.store.api.albumTracks) {
             let tracks = this.props.store.api.albumTracks.items
             if (tracks.length > 0) {
-                return tracks.map( (track, i) => {
-                    return(
+                return tracks.map((track, i) => {
+                    return (
                         <Row className="track">
-                            <div 
+                            <div
                                 key={i}
                                 className="track"
-                                onClick={ () => this.playAudio(track.preview_url) }
+                                onClick={() => this.playAudio(track.preview_url)}
                             >
                                 <img
                                     alt="related-track-cover"
@@ -83,13 +83,13 @@ class SearchForAlbum extends Component {
                     )
                 })
             } else {
-                null
+                return null
             }
         } else {
-            null
+            return null
         }
     }
-    
+
     render() {
         return (
             <div>
@@ -100,38 +100,38 @@ class SearchForAlbum extends Component {
                                 type="text"
                                 className="big_search"
                                 placeholder="Search for an Album"
-                                value={ this.state.query }
-                                onChange={ event => {
+                                value={this.state.query}
+                                onChange={event => {
                                     this.setState({ query: event.target.value })
                                 }}
-                                onKeyPress={ event => event.key === 'Enter' ? this.props.albumSearchPage(this.state.query) : null}
+                                onKeyPress={event => event.key === 'Enter' ? this.props.albumSearchPage(this.state.query) : null}
                             />
-                            <InputGroup.Addon onClick={ () => this.props.albumSearchPage(this.state.query) }>
+                            <InputGroup.Addon onClick={() => this.props.albumSearchPage(this.state.query)}>
                                 <Glyphicon glyph="search"></Glyphicon>
                             </InputGroup.Addon>
                         </InputGroup>
                     </FormGroup>
                 </Panel>
-                { 
-                    this.props.store.api.loading === false 
-                        ? 
-                            <div>
-                                <AlbumInfoPanel album={this.props.store.api.album} />
-                                <Panel header={albumTracks}>
-                                    {this.renderAlbumTracks()}
-                                </Panel>
-                            </div>
-                        :   
-                            null 
+                {
+                    this.props.store.api.loading === false
+                        ?
+                        <div>
+                            <AlbumInfoPanel album={this.props.store.api.album} />
+                            <Panel header={albumTracks}>
+                                {this.renderAlbumTracks()}
+                            </Panel>
+                        </div>
+                        :
+                        null
                 }
             </div>
-        ) 
+        )
     }
 }
 
 const albumTracks = (
-    <p> 
-        <img src='/assets/music-record-1.png' alt="beard guy icon"/><br/>
+    <p>
+        <img src='/assets/music-record-1.png' alt="beard guy icon" /><br />
         <strong>ALBUM TRACKS</strong>
     </p>
 )

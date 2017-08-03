@@ -1,30 +1,22 @@
 import React, { Component } from 'react'
-import { 
-    FormGroup, 
-    FormControl, 
-    InputGroup, 
-    Glyphicon, 
+import {
+    FormGroup,
+    FormControl,
+    InputGroup,
+    Glyphicon,
     Panel,
     Row,
     Col,
     Button
 } from 'react-bootstrap'
-import search from 'youtube-search'
 import { Link } from 'react-router-dom'
-import { 
-    searchForTrack, 
-    searchForArtist, 
-    searchForAlbum, 
-    getRelatedTracksBasedOnTrack, 
-    getRelatedArtists 
-} from '../../../api/spotify'
 import '../style.css'
 import '../../../App.css'
 import * as actions from '../../../actions/apiActions'
 import { connect } from 'react-redux'
 
 class SearchForTrack extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = { query: '' }
     }
@@ -60,9 +52,9 @@ class SearchForTrack extends Component {
                                         <strong>Popularity:</strong> {track.popularity}
                                     </Row>
                                     <Row className="followers-card">
-                                        <strong>Followers:</strong> { artist.followers.total.toLocaleString( undefined, { minimumFractionDigits: 0 }) }
+                                        <strong>Followers:</strong> {artist.followers.total.toLocaleString(undefined, { minimumFractionDigits: 0 })}
                                     </Row>
-                                    <hr/>
+                                    <hr />
                                     <Row className="band-card-name">
                                         {artist.name}
                                     </Row>
@@ -83,16 +75,16 @@ class SearchForTrack extends Component {
 
     renderTrackPlayLinks() {
         if (this.props.store.api.video) {
-        let track = this.props.store.api.tracks.tracks.items[0]
-        let video = this.props.store.api.video[0]
-            return(
+            let track = this.props.store.api.tracks.tracks.items[0]
+            let video = this.props.store.api.video[0]
+            return (
                 <Row>
                     <Col md={8}>
                         <iframe title={video.name} width="100%" height="315" src={`https://www.youtube.com/embed/${video.id}`} frameborder="0" allowfullscreen />
                     </Col>
                     <Col className="track-details-col" md={4}>
                         <Row>
-                            <iframe title={track.name} src={`https://open.spotify.com/embed/track/${track.id}`} width="95%" height="315" frameborder="0" allowtransparency="true"/>
+                            <iframe title={track.name} src={`https://open.spotify.com/embed/track/${track.id}`} width="95%" height="315" frameborder="0" allowtransparency="true" />
                         </Row>
                     </Col>
                 </Row>
@@ -103,20 +95,20 @@ class SearchForTrack extends Component {
     renderRelatedTracks() {
         if (this.props.store.api.relatedTracks) {
             const relatedTracks = this.props.store.api.relatedTracks.tracks
-            return relatedTracks.map( track => {
+            return relatedTracks.map(track => {
                 let cleanTrackName = this.dePunctuate(track.name)
                 let cleanArtistName = this.dePunctuate(track.artists[0].name)
                 let query = this.slugify(`${cleanTrackName} ${cleanArtistName}`)
-                return(
+                return (
                     <Row className="track">
-                        <Link 
-                            to={this.slugify(`/track/${cleanArtistName}/${this.dePunctuate(track.album.name)}/${cleanTrackName}`)} 
-                            onClick={ () => {
+                        <Link
+                            to={this.slugify(`/track/${cleanArtistName}/${this.dePunctuate(track.album.name)}/${cleanTrackName}`)}
+                            onClick={() => {
                                 if (!this.props.loading) {
                                     this.props.trackSearchPage(query)
-                                    this.setState({query: query})
+                                    this.setState({ query: query })
                                 } else {
-                                    null
+                                    return null
                                 }
                             }}
                         >
@@ -126,7 +118,7 @@ class SearchForTrack extends Component {
                                 src={track.album.images[0].url}
                             />
                             <Row className="track-text">
-                                {track.name}<br/>
+                                {track.name}<br />
                                 <strong>{track.artists[0].name}</strong>
                             </Row>
                         </Link>
@@ -134,39 +126,39 @@ class SearchForTrack extends Component {
                 )
             })
         } else {
-            null
+            return null
         }
     }
-    
-    dePunctuate(text){ return text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"") }
+
+    dePunctuate(text) { return text.replace(/[.,#!$%&;:{}=\-_`~()]/g, "") }
 
     slugify(text) { return text.replace(/\s+/g, '-').toLowerCase() }
 
     renderRelatedArtists() {
         if (this.props.store.api.relatedArtists) {
             let artists = this.props.store.api.relatedArtists.artists
-                return artists.map( artist => {
-                    return(
-                        <Row className="track">
-                            <Link 
-                                to={`/artists/${this.slugify(this.dePunctuate(artist.name))}`}
-                                onClick={ () => !this.props.store.api.loading ? this.props.artistSearchPage(this.state.query) : null }
-                            >
-                                <img
-                                    alt="related-track-cover"
-                                    className="track-img"
-                                    src={artist.images[0].url}
-                                />
-                                <Row className="track-text">
-                                    {artist.name}
-                                </Row>
-                            </Link>
-                        </Row>
-                    )
-                })
-            } else {
-                null
-        } 
+            return artists.map(artist => {
+                return (
+                    <Row className="track">
+                        <Link
+                            to={`/artists/${this.slugify(this.dePunctuate(artist.name))}`}
+                            onClick={() => !this.props.store.api.loading ? this.props.artistSearchPage(this.state.query) : null}
+                        >
+                            <img
+                                alt="related-track-cover"
+                                className="track-img"
+                                src={artist.images[0].url}
+                            />
+                            <Row className="track-text">
+                                {artist.name}
+                            </Row>
+                        </Link>
+                    </Row>
+                )
+            })
+        } else {
+            return null
+        }
     }
 
     render() {
@@ -179,30 +171,30 @@ class SearchForTrack extends Component {
                                 type="text"
                                 className="big_search"
                                 placeholder="Search for a Track"
-                                value={ this.state.query }
-                                onChange={ event => this.setState({ query: event.target.value }) }
-                                onKeyPress={ event => {
+                                value={this.state.query}
+                                onChange={event => this.setState({ query: event.target.value })}
+                                onKeyPress={event => {
                                     if (event.key === 'Enter') {
                                         this.props.trackSearchPage(this.state.query)
                                     }
                                 }}
                             />
-                            <InputGroup.Addon onClick={ () => this.props.trackSearchPage(this.state.query) }>
+                            <InputGroup.Addon onClick={() => this.props.trackSearchPage(this.state.query)}>
                                 <Glyphicon glyph="search"></Glyphicon>
                             </InputGroup.Addon>
                         </InputGroup>
                     </FormGroup>
                 </Panel>
-                { 
+                {
                     this.props.store.api.loading === false
-                        ? 
-                            <div>
-                                {this.renderTrackInfo()}
-                                <Panel>{this.renderTrackPlayLinks()}</Panel>
-                                <Panel header={title}>{this.renderRelatedTracks()}</Panel>
-                                <Panel header={title2}>{this.renderRelatedArtists()}</Panel>
-                            </div>
-                        :   null
+                        ?
+                        <div>
+                            {this.renderTrackInfo()}
+                            <Panel>{this.renderTrackPlayLinks()}</Panel>
+                            <Panel header={title}>{this.renderRelatedTracks()}</Panel>
+                            <Panel header={title2}>{this.renderRelatedArtists()}</Panel>
+                        </div>
+                        : null
                 }
             </div>
         )
@@ -210,15 +202,15 @@ class SearchForTrack extends Component {
 }
 
 const title = (
-    <p> 
-        <img src='/assets/notes-4.png' alt="beard guy icon"/><br/>
+    <p>
+        <img src='/assets/notes-4.png' alt="beard guy icon" /><br />
         <strong>RELATED TRACKS</strong>
     </p>
 )
 
 const title2 = (
-    <p> 
-        <img src='/assets/long-beard-2.png' alt="beard guy icon"/><br/>
+    <p>
+        <img src='/assets/long-beard-2.png' alt="beard guy icon" /><br />
         <strong>RELATED ARTISTS</strong>
     </p>
 )

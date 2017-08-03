@@ -16,7 +16,7 @@ function searchForTrack(query) {
             'Authorization': `Bearer ${localStorage["spotify_token"]}`,
         },
         method: 'GET',
-    }).then( response => response.json())
+    }).then(response => response.json())
 }
 
 function searchForAlbum(query) {
@@ -27,7 +27,7 @@ function searchForAlbum(query) {
             'Authorization': `Bearer ${localStorage["spotify_token"]}`,
         },
         method: 'GET',
-    }).then( response => response.json())
+    }).then(response => response.json())
 }
 
 // ARTIST
@@ -41,7 +41,7 @@ function getArtistTopTracks(artist) {
 function getArtistAlbums(artist) {
     const spotify = new Spotify()
     spotify.setAccessToken(localStorage["spotify_token"])
-    return spotify.getArtistAlbums(artist.id, {limit: 20})
+    return spotify.getArtistAlbums(artist.id, { limit: 20 })
 }
 
 function getRelatedArtists(seedArtist) {
@@ -52,7 +52,7 @@ function getRelatedArtists(seedArtist) {
             'Authorization': `Bearer ${localStorage["spotify_token"]}`,
         },
         method: 'GET',
-    }).then( response => response.json())
+    }).then(response => response.json())
 }
 
 // ALBUMS
@@ -80,7 +80,7 @@ function getRelatedTracksBasedOnTrack(track_id) {
             'Authorization': `Bearer ${localStorage["spotify_token"]}`,
         },
         method: 'GET',
-    }).then( response => response.json())
+    }).then(response => response.json())
 }
 
 // ME
@@ -93,7 +93,7 @@ function refreshSpotifyAuthToken() {
             'Authorization': localStorage.getItem('jwt')
         },
         method: 'POST',
-    }).then( response => response.json() )
+    }).then(response => response.json())
 }
 
 
@@ -105,7 +105,7 @@ function getUserRecentlyPlayedTracks() {
             'Authorization': `Bearer ${localStorage["spotify_token"]}`,
         },
         method: 'GET',
-    }).then( response => response.json())
+    }).then(response => response.json())
 }
 // Valid values 
 // long_term (calculated from several years of data and including all new data as it becomes available), 
@@ -119,7 +119,7 @@ function getUserSavedTracks() {
             'Authorization': `Bearer ${localStorage["spotify_token"]}`,
         },
         method: 'GET',
-    }).then( response => response.json())
+    }).then(response => response.json())
 }
 
 function getUserFollowedArtists() {
@@ -131,22 +131,22 @@ function getUserFollowedArtists() {
         },
         method: 'GET',
     })
-    .then( response => response.json())
+        .then(response => response.json())
 }
 
 // ME -> PLAYBACK
 
-function getUserTopArtistsOrTracks(type) { // artists or tracks
-    return fetch(`https://api.spotify.com/v1/me/top/${type}`, {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage["spotify_token"]}`,
-        },
-        method: 'GET',
-    })
-    .then( response => response.json())
-}
+// function getUserTopArtistsOrTracks(type) { // artists or tracks
+//     return fetch(`https://api.spotify.com/v1/me/top/${type}`, {
+//         headers: {
+//             'Accept': 'application/json',
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${localStorage["spotify_token"]}`,
+//         },
+//         method: 'GET',
+//     })
+//     .then( response => response.json())
+// }
 
 function getUserCurrentlyPlayingTrack() {
     return fetch("https://api.spotify.com/v1/me/player/currently-playing", {
@@ -157,7 +157,7 @@ function getUserCurrentlyPlayingTrack() {
         },
         method: 'GET',
     })
-    .then( response => response.json())
+        .then(response => response.json())
 }
 
 function putStartStopUserPlayback(context_uri) {
@@ -168,9 +168,9 @@ function putStartStopUserPlayback(context_uri) {
             'Authorization': `Bearer ${localStorage["spotify_token"]}`,
         },
         method: 'PUT',
-        body: `${{context_uri: context_uri }}`
+        body: `${{ context_uri: context_uri }}`
     })
-    .then( response => response.json())
+        .then(response => response.json())
 }
 
 function putSeekToPositionInCurrentlyPlayingTrack(position_ms) {
@@ -182,7 +182,7 @@ function putSeekToPositionInCurrentlyPlayingTrack(position_ms) {
         },
         method: 'PUT',
     })
-    .then( response => response.json())
+        .then(response => response.json())
 }
 
 // PLAYLISTS
@@ -196,7 +196,7 @@ function postAddTracksToPlaylist(user_id, playlist_id, uris_to_add) {
         },
         method: 'POST',
     })
-    .then( response => response.json())
+        .then(response => response.json())
     // request body or query string: uris, position *optional
 }
 
@@ -209,7 +209,7 @@ function putReorderPlaylistTracks(user_id, playlist_id, uris_to_add) {
         },
         method: 'POST',
     })
-    .then( response => response.json())
+        .then(response => response.json())
     // request body or query string: uris, position *optional
 }
 
@@ -222,14 +222,14 @@ function deletePlaylistTracks(user_id, playlist_id, uris_to_add) {
         },
         method: 'DELETE',
     })
-    .then( response => response.json())
+        .then(response => response.json())
     // request body or query string: uris, position *optional
 }
 
-export { 
-    searchForArtist, 
-    searchForTrack, 
-    searchForAlbum, 
+export {
+    searchForArtist,
+    searchForTrack,
+    searchForAlbum,
     getArtistTopTracks,
     getArtistAlbums,
     getRelatedArtists,
