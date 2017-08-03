@@ -15,13 +15,13 @@ export function logOut() {
     }
 }
 
-export function fetchLogIn(spotify_uid, history) {
+export function fetchLogIn(email, history) {
     return function (dispatch) {
         dispatch(requestLogIn())
 
-        return logIn(spotify_uid)
+        return logIn(email)
             .then(data => {
-                console.log(data)
+                console.log('fetchLogIn Data: ', data)
                 if (data.error) {
                     dispatch(logInError(data.error))
                 } else {
@@ -53,6 +53,7 @@ export function receiveLogIn(user) {
         localStorage.setItem('jwt', user.token)
         localStorage.setItem('user_id', user.id)
         localStorage.setItem('profile_image', user.image)
+        localStorage.setItem('spotify_token', user.spotify_token)
         localStorage.setItem('spotify_refresh_token', user.spotify_refresh_token)
         localStorage.setItem('spotify_uid', user.spotify_uid)
         dispatch(logInAction())

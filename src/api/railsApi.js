@@ -1,13 +1,13 @@
 var environment = ['http://musichead-rails-api.herokuapp.com', 'http://localhost:3000']
 
-function logIn(token) {
+function logIn(email) {
     return fetch(`${environment[1]}/api/v1/sessions/`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         method: 'POST',
-        body: JSON.stringify({ token: token })
+        body: JSON.stringify({ email: email })
     }).then(res => {
         res.json()
     })
@@ -18,8 +18,7 @@ function fetchUsers() {
         headers: {
             'Authorization': localStorage.getItem('jwt')
         }
-    })
-        .then(res => res.json())
+    }).then(res => res.json())
 }
 
 function fetchUser(id) {
@@ -27,8 +26,7 @@ function fetchUser(id) {
         headers: {
             'Authorization': localStorage.getItem('jwt')
         }
-    })
-        .then(res => res.json())
+    }).then(res => res.json())
 }
 
 function createUser(user) {
