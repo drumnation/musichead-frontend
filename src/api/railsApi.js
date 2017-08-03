@@ -1,4 +1,4 @@
-var environment = ['https://musichead-rails-api.herokuapp.com', 'http://localhost:3000']
+var environment = ['http://localhost:3000', 'https://musichead-rails-api.herokuapp.com']
 
 const logIn = async email => {
     try {
